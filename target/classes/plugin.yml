@@ -1,0 +1,6 @@
+name: PudgeCore
+version: '1.0'
+main: me.elpomoika.pudgecore.PudgeCore
+api-version: '1.16'
+commands:
+  pudge: {}
