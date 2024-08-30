@@ -1,8 +1,8 @@
 package me.elpomoika.pudgecore.listeners;
 
 import me.elpomoika.pudgecore.PudgeCore;
+import me.elpomoika.pudgecore.utils.PlayerUtils;
 import org.bukkit.*;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,7 +19,8 @@ import java.util.ArrayList;
 
 public class RightClickListener implements Listener {
     private final ArrayList<Player> listOfPlayers = new ArrayList<>();
-    private int taskID = 0;
+    public static int taskID = 0;
+    private final PlayerUtils PlayerUtils = new PlayerUtils();
 
     @EventHandler
     public void onRightClick(PlayerInteractEvent event) {
@@ -45,7 +46,7 @@ public class RightClickListener implements Listener {
                                 Location particle = new Location(player.getWorld(), x, playerLocation.getY() + 0.76, z);
                                 player.getWorld().spawnParticle(Particle.VILLAGER_HAPPY, particle, 10, 0, 0, 0, 0.0001);
                                 player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 10000, 1));
-                                setEffectToNearbyPlayer(player, x, playerLocation.getY(), z);
+                                PlayerUtils.setEffectToNearbyPlayer(player, x, playerLocation.getY(), z);
                             }
                         }
                     }.runTaskTimer(PudgeCore.getInstance(), 0L, 5).getTaskId();
@@ -69,24 +70,5 @@ public class RightClickListener implements Listener {
         listOfPlayers.remove(player);
         PudgeCore.getInstance().getLogger().info("player" + player.getDisplayName() + "has removing from array list");
         return false;
-    }
-
-    public void setEffectToNearbyPlayer(Player player, double x, double y, double z) {
-        ArrayList<Player> nearbyPlayers = new ArrayList<>();
-        for (Entity entity : player.getNearbyEntities(x, y, z)) {
-            if (entity instanceof Player) {
-                nearbyPlayers.add((Player) entity);
-            }
-        }
-
-        if (Bukkit.getScheduler().isCurrentlyRunning(taskID)) {
-            for (Player p : nearbyPlayers) {
-                p.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 1000, 1));
-            }
-        } else {
-            for (Player p : nearbyPlayers) {
-                p.removePotionEffect(PotionEffectType.WITHER);
-            }
-        }
     }
 }
