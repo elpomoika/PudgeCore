@@ -2,3 +2,4 @@ me/elpomoika/pudgecore/listeners/RightClickListener.class
 me/elpomoika/pudgecore/utils/RodItem.class
 me/elpomoika/pudgecore/PudgeCore.class
 me/elpomoika/pudgecore/commands/ActivatePudgeMod.class
+me/elpomoika/pudgecore/listeners/RightClickListener$1.class

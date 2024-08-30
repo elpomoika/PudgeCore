@@ -18,6 +18,7 @@ public class ActivatePudgeMod implements CommandExecutor {
 
         if (!(sender instanceof Player)) {
             PudgeCore.getInstance().getLogger().info("Only players can do this");
+            return false;
         }
 
         Player player = (Player) sender;
